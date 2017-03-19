@@ -1,8 +1,10 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 
+const context = path.resolve(__dirname, "src")
+
 module.exports = {
-  context: path.resolve(__dirname, "src"),
+  context,
   entry: "./js/index.js",
   output: {
     path: path.resolve(__dirname, "build/js"),
@@ -12,7 +14,31 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        use: "babel-loader"
+        loader: "babel-loader",
+        options: {
+          plugins: [
+            [
+              "react-css-modules",
+              {
+                context
+              }
+            ]
+          ]
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: "[path]___[name]__[local]___[hash:base64:5]"
+            }
+          }
+        ]
       }
     ]
   },
