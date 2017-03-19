@@ -53,7 +53,8 @@ module.exports = {
     new ExtractTextPlugin("css/app.css")
   ],
   devServer: {
-    contentBase: path.resolve(__dirname, "src")
+    contentBase: path.resolve(__dirname, "src"),
+    historyApiFallback: true
   },
   devtool: "source-map"
 }
