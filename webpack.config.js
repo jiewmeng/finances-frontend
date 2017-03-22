@@ -31,20 +31,19 @@ module.exports = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: {
-            loader: "css-loader",
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: "[path]___[name]__[local]___[hash:base64:5]",
-              sourceMap: true
-            }
-          }
+          use: [
+            {
+              loader: "css-loader",
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: "[path]___[name]__[local]___[hash:base64:5]",
+                sourceMap: true
+              }
+            },
+            'postcss-loader'
+          ]
         })
-      },
-      {
-        test: /\.s(a|c)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },

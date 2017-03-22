@@ -1,0 +1,7 @@
+.app-link {
+  text-decoration: none;
+}
+
+.app-link.active {
+  font-weight: bold;
+}
