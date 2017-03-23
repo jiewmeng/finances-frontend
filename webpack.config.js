@@ -1,14 +1,15 @@
 const path = require("path")
-const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const context = path.resolve(__dirname, "src")
-const {dependencies} = require("./package.json")
 
 module.exports = {
   context,
-  entry: "./js/index.js",
+  entry: [
+    "react-hot-loader/patch",
+    "./js/index.js"
+  ],
   output: {
     path: path.resolve(__dirname, "build/js"),
     filename: "index.js"
@@ -61,5 +62,5 @@ module.exports = {
     contentBase: path.resolve(__dirname, "src"),
     historyApiFallback: true
   },
-  devtool: "source-map"
+  devtool: "eval"
 }
