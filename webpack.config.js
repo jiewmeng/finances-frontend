@@ -8,16 +8,23 @@ const {dependencies} = require("./package.json")
 
 module.exports = {
   context,
-  entry: "./js/index.js",
+  entry: {
+    vendor: Object.keys(dependencies),
+    app: [
+      "react-hot-loader/patch",
+      "./js/index.js"
+    ]
+  },
   output: {
     path: path.resolve(__dirname, "build/js"),
-    filename: "index.js"
+    filename: "[name]-[hash].js"
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         loader: "babel-loader",
+        exclude: /node_modules/,
         options: {
           plugins: [
             [
@@ -50,16 +57,20 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor"
+    }),
     new HtmlWebpackPlugin({
       template: "./index.html",
       filename: "index.html",
       inject: "body"
     }),
-    new ExtractTextPlugin("css/app.css")
+    new webpack.NamedModulesPlugin(),
+    new ExtractTextPlugin("css/[name].css")
   ],
   devServer: {
     contentBase: path.resolve(__dirname, "src"),
     historyApiFallback: true
   },
-  devtool: "source-map"
+  devtool: "eval"
 }
