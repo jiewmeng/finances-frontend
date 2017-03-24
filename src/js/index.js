@@ -13,8 +13,8 @@ const render = Component => {
   )
 }
 
-render(<App />)
+render(App)
 
 if (module.hot) {
-  module.hot.accept("./App.jsx", () => render(<App />))
+  module.hot.accept("./App.jsx", () => render(App))
 }
